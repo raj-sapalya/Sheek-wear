@@ -10,6 +10,7 @@
 </head>
 <body>
 
+
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -19,8 +20,8 @@
   <ul class="nav-links">
     <li><a href="#collections">Collections</a></li>
     <li><a href="#">Lookbook</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Cart (0)</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#" onclick="toggleCart()">Cart (0)</a></li>
   </ul>
 </nav>
 
@@ -226,6 +227,13 @@
   </div>
 
 </div>
+<section id="about" style="padding: 6rem 4rem;">
+  <h2 style="font-size: 2rem; margin-bottom: 1rem;">About Us</h2>
+  <p style="max-width: 600px; color: #aaa;">
+    Sheek Wear is a modern clothing brand focused on minimal luxury coord sets.
+    We design pieces that feel effortless, premium, and timeless.
+  </p>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -257,51 +265,13 @@
   <p>Made in India</p>
 </div>
 
-<script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-  document.querySelectorAll('button, a, .coord-item').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
+<!-- CART BOX -->
+<div id="cartBox">
+  <h3>Your Cart</h3>
+  <ul id="cartItems"></ul>
+</div>
 
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.coord-item').forEach(el => observer.observe(el));
-
-  // Size selector
-  function selectSize(btn) {
-    const parent = btn.closest('.size-row');
-    parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  // Parallax hero text on scroll
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      heroContent.style.transform = `translateY(${scrolled * 0.35}px)`;
-      heroContent.style.opacity = 1 - scrolled / 600;
-    }
-  });
-</script>
+<!-- JS FILE LINK -->
+<script src="script.js"></script>
 </body>
 </html>
